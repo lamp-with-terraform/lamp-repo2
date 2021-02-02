@@ -343,12 +343,33 @@ resource "aws_lb_target_group" "app_instances" {
   vpc_id   = "${aws_vpc.lamp_vpc.id}"
 }
 
-#resource "aws_lb_target_group_attachment" "test" {
-#  target_group_arn = "${aws_lb_target_group.app_instances.arn}"
-#  target_id        = "${aws_instance.app_instances.id}"
-#  port             = 80
-#}
+/*resource "aws_lb_target_group_attachment" "test1" {
+  target_group_arn = "${aws_lb_target_group.app_instances.arn}"
+  target_id        = "i-0fca50fb333b5506e"
+  port             = 80
+}
 
+resource "aws_lb_target_group_attachment" "test2" {
+  target_group_arn = "${aws_lb_target_group.app_instances.arn}"
+  target_id        = "i-0b31f6f4c7404da08"
+  port             = 80
+}
+
+resource "aws_lb_listener_rule" "asg" {
+  listener_arn = "${aws_lb_listener.http.arn}"
+  priority = 100
+
+  action {
+    type = "forward"
+    target_group_arn = "${aws_lb_target_group.app_instances.arn}"
+  }
+  condition {
+    path_pattern {
+      values = ["*"]
+    }
+  }
+}
+*/
 output "public_dns" {
 value = "${aws_lb.lamp_lb.dns_name}"
 }
